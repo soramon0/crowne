@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import { signInWithGoogle } from '../services/firebase'
 import CustomButton from './shared/custom-button'
 import FormInput from './shared/form-input'
 
@@ -11,7 +12,7 @@ function Signin() {
 	}
 
 	const handleSubmit = (e) => {
-		e.preventDefault();
+    e.preventDefault();
 
     setSigninData({ email: '', password: '' });
 	}
@@ -38,7 +39,10 @@ function Signin() {
             label='password'
             required
           />
-          <CustomButton type='submit'> Sign in </CustomButton>
+          <div className="buttons">
+            <CustomButton type='submit'>Sign in</CustomButton>
+            <CustomButton onClick={signInWithGoogle} isGoogleSignIn>Sign in With Google</CustomButton>
+          </div>
         </form>
 		</div>
 	)
