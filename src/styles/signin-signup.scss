@@ -1,3 +1,10 @@
+.signin-and-signup {
+  width: 850px;
+  display: flex;
+  justify-content: space-between;
+  margin: 30px auto;
+}
+
 .sign-in {
   width: 380px;
   display: flex;
@@ -10,5 +17,15 @@
   .buttons {
     display: flex;
     justify-content: space-between;
+  }
+}
+
+.sign-up {
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+
+  .title {
+    margin: 10px 0;
   }
 }
