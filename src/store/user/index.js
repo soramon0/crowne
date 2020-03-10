@@ -1,10 +1,12 @@
+import types from './types'
+
 const initial_state = {
 	currentUser: null
 }
 
 const userReducer = (state = initial_state, { type, payload }) => {	
 	switch (type) {
-		case 'SET_CURRENT_USER':		
+		case types.SET_CURRENT_USER:		
 			return {
 				...state,
 				currentUser: payload

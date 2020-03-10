@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 import { ReactComponent as Logo } from '../assets/crown.svg';
 import { auth } from '../services/firebase'
 import { useSelector } from 'react-redux'
+import CartIcon from './cart-icon'
+import CartDropdown from './cart-dropdown'
 
 
 function Header() {
 	const user = useSelector(({ user }) => user.currentUser)
+	const cartHidden = useSelector(({ cart }) => cart.hidden)
 	
 	return (
 		<div className='header'>
@@ -18,6 +21,9 @@ function Header() {
 				<Link className='option' to='/shop'>
 					SHOP
 				</Link>
+				<Link className='option' to='/shop'>
+					CONTACT
+				</Link>
 				{
 					user ? 
 						<div class='option' onClick={() => auth.signOut()}>SIGNOUT</div> : 
@@ -25,10 +31,9 @@ function Header() {
 							SIGNIN
 						</Link>
 				}
-				<Link className='option' to='/shop'>
-					CONTACT
-				</Link>
+				<CartIcon />
 			</div>
+			{cartHidden ? null : <CartDropdown />}
 		</div>
 	)
 }
