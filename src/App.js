@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Switch, Route, Redirect } from "react-router-dom"
 
@@ -12,15 +12,15 @@ import { setCurrentUser } from './store/user/actions'
 
 
 function App() {
-  const loading = useRef(true)
+  const [loading, setLoading] = useState(true)
   const user = useSelector(({ user }) => user.currentUser)
   const dispatch = useDispatch()
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth)  
-       
+        const userRef = await createUserProfileDocument(userAuth)
+
         userRef.onSnapshot(snapshot => {
           const user = {
             id: snapshot.id,
@@ -28,18 +28,18 @@ function App() {
           }
 
           dispatch(setCurrentUser(user))
+          setLoading(false)
         })
+      } else {
+        setLoading(false)
       }
-    })
-
-    loading.current = false
+    })   
 
     return () => unsub()
   }, [dispatch])
 
   return (
-    loading.current ? <p>loading...</p> :
-    <div>
+    loading ? <p>loading...</p> : <div>
       <Header />
       <Switch>
         <Route exact path='/' component={Homepage} />
