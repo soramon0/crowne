@@ -11,7 +11,7 @@ function CheckoutItem({ item }) {
 		dispatch(clearItemFromCart(item))
 	}
 
-	const { name, imageUrl, price, quantity, id} = item
+	const { name, imageUrl, price, quantity} = item
 	return (
 		<div className='checkout-item'>
 			<div className='image-container'>
