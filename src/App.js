@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import './App.css';
 import Header from './components/header';
-import Homepage from './pages/Homepage';
+import HomePage from './pages/Homepage';
 import ShopPage from './pages/Shoppage';
-import SignInSignUp from './pages/Signin-signup';
-import Checkoutpage from './pages/Checkoutpage';
+import SigninSignup from './pages/Signin-signup';
+import CheckoutPage from './pages/Checkoutpage';
 import { auth, createUserProfileDocument } from './services/firebase'
 import { setCurrentUser } from './store/user/actions'
 import { selectCurrentUser } from './store/user/selectors'
@@ -43,10 +43,10 @@ function App() {
     loading ? <p>loading...</p> : <div>
       <Header />
       <Switch>
-        <Route exact path='/' component={Homepage} />
+        <Route exact path='/' component={HomePage} />
         <Route path='/shop' component={ShopPage} />
-        <Route exact path='/checkout' component={Checkoutpage} />
-        <Route exact path='/signin' render={() => user ? <Redirect to='/' /> : <SignInSignUp />} />
+        <Route exact path='/checkout' component={CheckoutPage} />
+        <Route exact path='/signin' render={() => user ? <Redirect to='/' /> : <SigninSignup />} />
       </Switch>
     </div>
   );

@@ -5,7 +5,7 @@ import '../styles/checkoutpage.scss'
 import { selectCartItems, selectCartTotal } from '../store/cart/selectors'
 import CheckoutItem from '../components/checkout-item'
 
-function Checkoutpage() {
+function CheckoutPage() {
 	const items = useSelector(selectCartItems)
 	const total = useSelector(selectCartTotal)
 
@@ -38,4 +38,4 @@ function Checkoutpage() {
 	)
 }
 
-export default Checkoutpage
+export default CheckoutPage
