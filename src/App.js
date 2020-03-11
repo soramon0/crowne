@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import './App.css';
 import { Switch, Route, Redirect } from "react-router-dom"
+import { useDispatch, useSelector } from 'react-redux'
 
+import './App.css';
 import Header from './components/header';
 import Homepage from './pages/Homepage';
 import ShopPage from './pages/Shoppage';
-import SignInSignUp from './pages/signin-signup';
+import SignInSignUp from './pages/Signin-signup';
+import Checkoutpage from './pages/Checkoutpage';
 import { auth, createUserProfileDocument } from './services/firebase'
-import { useDispatch, useSelector } from 'react-redux'
 import { setCurrentUser } from './store/user/actions'
-
+import { selectCurrentUser } from './store/user/selectors'
 
 function App() {
   const [loading, setLoading] = useState(true)
-  const user = useSelector(({ user }) => user.currentUser)
+  const user = useSelector(selectCurrentUser)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -44,6 +45,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={Homepage} />
         <Route path='/shop' component={ShopPage} />
+        <Route exact path='/checkout' component={Checkoutpage} />
         <Route exact path='/signin' render={() => user ? <Redirect to='/' /> : <SignInSignUp />} />
       </Switch>
     </div>

@@ -1,18 +1,20 @@
 import React from 'react'
-import '../styles/header.scss'
 import { Link } from 'react-router-dom';
-import { ReactComponent as Logo } from '../assets/crown.svg';
 import { auth } from '../services/firebase'
 import { useSelector, useDispatch } from 'react-redux'
+
+import '../styles/header.scss'
+import { ReactComponent as Logo } from '../assets/crown.svg';
 import CartIcon from './cart-icon'
 import CartDropdown from './cart-dropdown'
 import { setCurrentUser } from '../store/user/actions'
-
+import { selectCurrentUser } from '../store/user/selectors'
+import { selectCartHidden } from '../store/cart/selectors'
 
 function Header() {
 	const dispatch = useDispatch()
-	const user = useSelector(({ user }) => user.currentUser)
-	const cartHidden = useSelector(({ cart }) => cart.hidden)
+	const user = useSelector(selectCurrentUser)
+	const cartHidden = useSelector(selectCartHidden)
 
 	const dispatchSignout = () => {
 		auth.signOut()
@@ -33,7 +35,7 @@ function Header() {
 				</Link>
 				{
 					user ? 
-						<div class='option' onClick={dispatchSignout}>SIGNOUT</div> : 
+						<div className='option' onClick={dispatchSignout}>SIGNOUT</div> : 
 						<Link className='option' to='/signin'>
 							SIGNIN
 						</Link>
