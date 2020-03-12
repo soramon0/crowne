@@ -3,11 +3,11 @@ import { Switch, Route, Redirect } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 
 import './App.css';
-import Header from './components/header';
-import HomePage from './pages/Homepage';
-import ShopPage from './pages/Shoppage';
-import SigninSignup from './pages/Signin-signup';
-import CheckoutPage from './pages/Checkoutpage';
+import Header from './components/header/';
+import HomePage from './components/home/';
+import ShopPage from './components/shop/';
+import SigninSignup from './components/register/';
+import CheckoutPage from './components/checkout/';
 import { auth, createUserProfileDocument } from './services/firebase'
 import { setCurrentUser } from './store/user/actions'
 import { selectCurrentUser } from './store/user/selectors'
