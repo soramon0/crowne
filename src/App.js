@@ -11,6 +11,7 @@ import CheckoutPage from './components/checkout/';
 import { auth, createUserProfileDocument } from './services/firebase'
 import { setCurrentUser } from './store/user/actions'
 import { selectCurrentUser } from './store/user/selectors'
+import { SpinnerOverlay, SpinnerContainer } from './components/shared/shared.styles';
 
 function App() {
   const [loading, setLoading] = useState(true)
@@ -40,15 +41,19 @@ function App() {
   }, [dispatch])
 
   return (
-    loading ? <p>loading...</p> : <div>
-      <Header />
-      <Switch>
-        <Route exact path='/' component={HomePage} />
-        <Route path='/shop' component={ShopPage} />
-        <Route exact path='/checkout' component={CheckoutPage} />
-        <Route exact path='/signin' render={() => user ? <Redirect to='/' /> : <SigninSignup />} />
-      </Switch>
-    </div>
+    loading ?
+      <SpinnerOverlay>
+        <SpinnerContainer />
+      </SpinnerOverlay> : 
+      <>
+        <Header />
+        <Switch>
+          <Route exact path='/' component={HomePage} />
+          <Route path='/shop' component={ShopPage} />
+          <Route exact path='/checkout' component={CheckoutPage} />
+          <Route exact path='/signin' render={() => user ? <Redirect to='/' /> : <SigninSignup />} />
+        </Switch>
+      </>
   );
 }
 

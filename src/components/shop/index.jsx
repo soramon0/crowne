@@ -18,11 +18,12 @@ function ShopPage({ match }) {
 	useEffect(() => {
 		const collectionRef = firestore.collection('collections')
 
-		collectionRef.onSnapshot(async snapshot => {			
-			const collectionsMap = covertCollectionSnapshotToMap(snapshot)
-			dispatch(updateCollections(collectionsMap));
-			setLoading(false)
-		})
+		collectionRef.get()
+			.then(snapshot => {			
+				const collectionsMap = covertCollectionSnapshotToMap(snapshot)
+				dispatch(updateCollections(collectionsMap));
+				setLoading(false)
+			})
 	}, [dispatch])	
 
 	return (
