@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import CartIcon from './cart-icon'
 import CartDropdown from './cart-dropdown'
-import { setCurrentUser } from '../../store/user/actions'
+import { signOutStart } from '../../store/user/actions'
 import { selectCurrentUser } from '../../store/user/selectors'
 import { selectCartHidden } from '../../store/cart/selectors'
 import {
@@ -22,7 +22,7 @@ function Header() {
 
 	const dispatchSignout = () => {
 		auth.signOut()
-		dispatch(setCurrentUser(null))
+		dispatch(signOutStart())
 	}
 	
 	return (

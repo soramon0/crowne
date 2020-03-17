@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, Redirect } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -8,43 +8,18 @@ import HomePage from './components/home/';
 import ShopPage from './components/shop/';
 import SigninSignup from './components/register/';
 import CheckoutPage from './components/checkout/';
-import { auth, createUserProfileDocument } from './services/firebase'
-import { setCurrentUser } from './store/user/actions'
-import { selectCurrentUser } from './store/user/selectors'
-import { SpinnerOverlay, SpinnerContainer } from './components/shared/shared.styles';
+import { selectCurrentUser } from './store/user/selectors';
+import { checkUserSession } from './store/user/actions';
 
 function App() {
-  const [loading, setLoading] = useState(true)
   const user = useSelector(selectCurrentUser)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const unsub = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth)
-
-        userRef.onSnapshot(snapshot => {
-          const user = {
-            id: snapshot.id,
-            ...snapshot.data()
-          }
-
-          dispatch(setCurrentUser(user))
-          setLoading(false)
-        })
-      } else {
-        setLoading(false)
-      }
-    })   
-
-    return () => unsub()
+    dispatch(checkUserSession())
   }, [dispatch])
 
   return (
-    loading ?
-      <SpinnerOverlay>
-        <SpinnerContainer />
-      </SpinnerOverlay> : 
       <>
         <Header />
         <Switch>

@@ -17,10 +17,8 @@ firebase.initializeApp(config)
 export const auth = firebase.auth()
 export const firestore = firebase.firestore()
 
-const googleProvider = new firebase.auth.GoogleAuthProvider()
+export const googleProvider = new firebase.auth.GoogleAuthProvider()
 googleProvider.setCustomParameters({ prompt: 'select_account' })
-
-export const signInWithGoogle = () => auth.signInWithPopup(googleProvider)
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
 	if (!userAuth) return
@@ -76,6 +74,15 @@ export const covertCollectionSnapshotToMap = (collections) => {
 		accumulator[collection.title.toLowerCase()] = collection
 		return accumulator
 	}, {})
+}
+
+export const getCurrentUser = () => {
+	return new Promise((res, rej) => {
+		const unsub = auth.onAuthStateChanged(user => {
+			unsub()			
+			res(user)
+		}, rej)
+	})
 }
 
 export default firebase;
