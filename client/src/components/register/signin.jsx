@@ -13,15 +13,15 @@ import {
 
 function Signin() {
   const dispatch = useDispatch()
-	const [signinData, setSigninData] = useState({ email: '', password: '' })
+	const [userCreds, setUserCreds] = useState({ email: '', password: '' })
 
 	const handleChange = ({ target: { name, value } }) => {
-		setSigninData({ ...signinData, [name]: value })
+		setUserCreds({ ...userCreds, [name]: value })
 	}
 
 	const dispatchEmailSignIn = async (e) => {
     e.preventDefault();
-    dispatch(emailSignInStart(signinData))
+    dispatch(emailSignInStart(userCreds))
   }
   
   const dispatchGoogleSignIn = () => {
@@ -38,14 +38,14 @@ function Signin() {
             name='email'
             type='email'
             handleChange={handleChange}
-            value={signinData.email}
+            value={userCreds.email}
             label='email'
             required
           />
           <FormInput
             name='password'
             type='password'
-            value={signinData.password}
+            value={userCreds.password}
             handleChange={handleChange}
             label='password'
             required

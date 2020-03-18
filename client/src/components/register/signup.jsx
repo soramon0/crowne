@@ -8,7 +8,7 @@ import { signUpStart } from '../../store/user/actions';
 
 function Signup() {
 	const dispatch = useDispatch()
-	const [signupData, setSignupData] = useState({
+	const [userCreds, setUserCreds] = useState({
 		displayName: '',
 		email: '',
 		password: '',
@@ -16,10 +16,10 @@ function Signup() {
 	})
 
 	const handleChange = ({ target: { name, value } }) => {
-		setSignupData({ ...signupData, [name]: value })
+		setUserCreds({ ...userCreds, [name]: value })
 	}
 
-	const { displayName, email, password, confirmPassword } = signupData;
+	const { displayName, email, password, confirmPassword } = userCreds;
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -29,7 +29,7 @@ function Signup() {
 			return
 		}
 
-		dispatch(signUpStart(signupData))
+		dispatch(signUpStart(userCreds))
 	}
 
 	return (
